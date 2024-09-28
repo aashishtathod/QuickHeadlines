@@ -8,6 +8,6 @@ data class ArticleEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val title: String,
-    val description: String,
-    val imageUrl: String
+    val description: String? = null,
+    val imageUrl: String? = null
 )

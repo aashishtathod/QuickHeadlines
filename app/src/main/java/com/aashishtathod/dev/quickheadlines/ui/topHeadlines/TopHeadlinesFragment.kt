@@ -67,6 +67,7 @@ class TopHeadlinesFragment : Fragment() {
                         }
 
                         is TopHeadlinesUiState.Success -> {
+                            Toast.makeText(context, "Sucess", Toast.LENGTH_LONG).show()
                             adapter.submitList(it.news)
                         }
 

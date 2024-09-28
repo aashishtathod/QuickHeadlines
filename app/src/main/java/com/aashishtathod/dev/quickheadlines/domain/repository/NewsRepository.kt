@@ -6,5 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
 
-    suspend fun getTopHeadlines(): Flow<ApiResponse<List<NewsModel>>>
+     fun getTopHeadlines(): Flow<ApiResponse<List<NewsModel>>>
+
+     suspend fun syncTopHeadlines(): ApiResponse<Unit>
 }

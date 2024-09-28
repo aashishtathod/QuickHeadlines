@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class ArticleDto(
     val title: String,
-    val description: String,
+    val description: String? = null,
     @SerializedName("url")
-    val imageUrl: String
+    val imageUrl: String? = null
 )

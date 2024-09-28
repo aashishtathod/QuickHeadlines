@@ -19,7 +19,7 @@ class NewsRepositoryImpl @Inject constructor(
     private val newsDao: NewsDao
 ) : NewsRepository {
 
-    override suspend fun getTopHeadlines(): Flow<ApiResponse<List<NewsModel>>> = flow {
+    override fun getTopHeadlines(): Flow<ApiResponse<List<NewsModel>>> = flow {
         //emit(ApiResponse.Loading)
         try {
             val apiResponse = newsApi.getTopHeadlines()
@@ -38,4 +38,17 @@ class NewsRepositoryImpl @Inject constructor(
 
         }
     }.flowOn(Dispatchers.IO)
+
+
+    override suspend fun syncTopHeadlines(): ApiResponse<Unit> {
+        return try {
+            val apiResponse = newsApi.getTopHeadlines()
+            newsDao.updateTopHeadlines(apiResponse.articles.toArticleEntityList())
+            ApiResponse.Success(Unit)
+        } catch (e: Exception) {
+            ApiResponse.Failure(e.localizedMessage.orEmpty())
+        }
+    }
+
+
 }

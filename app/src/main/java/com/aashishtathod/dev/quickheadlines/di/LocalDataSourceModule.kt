@@ -24,7 +24,8 @@ object LocalDataSourceModule {
             context,
             NewsDataBase::class.java,
             "news_database"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides

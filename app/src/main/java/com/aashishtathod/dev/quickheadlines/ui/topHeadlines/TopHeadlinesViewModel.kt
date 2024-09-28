@@ -24,12 +24,12 @@ class TopHeadlinesViewModel @Inject constructor(
         MutableStateFlow(TopHeadlinesUiState.None)
     val uiState: StateFlow<TopHeadlinesUiState> = _uiState
 
-    fun getTopHeadlines() {
+    private fun getTopHeadlines() {
         viewModelScope.launch {
             _uiState.emit(TopHeadlinesUiState.Loading)
             getTopHeadlinesUseCase.getTopHeadlines()
                 .catch {
-                    // todo
+                    _uiState.emit(TopHeadlinesUiState.Error(it.localizedMessage))
                 }
                 .collect {
                     when (it) {
